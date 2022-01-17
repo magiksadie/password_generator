@@ -1,13 +1,27 @@
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate"); //generte id = red button
 
+//Vars - character types
+var lowerCaseCharacter = "abcdefgijklmnopqrstuvwxyz";
+var upperCaseCharacter = String.fromCharCode(65-90);
+var numberCharacter = String.fromCharCode(48-57);
+var specialCharacter = String.fromCharCode((33-47) + (58-91));
+var allChars = "";
+var password = "";
+var passwordLength = 0;
+var lowerCase = false;
+var upperCase = false;
+var numbers = false;
+var special = false;
+var nonNumericCharacters = [];
+
 //generate password function
 function generatePassword() {
   console.log("Button has been clicked."); 
 //1: Prompt user for password criteria
 alert("Welcome! Let's create a randomly generated password for you!");
 //  a. password length 8-128
-var passwordLength = parseInt(
+passwordLength = parseInt(
   prompt("How long would you like your password? Type a value between 8 - 128.")
 );
 while (!passwordLength) {
@@ -22,24 +36,41 @@ else {
 }
 //  b. character types
 //  b. 1. lowercase
-prompt("Would you like to include lowercase? Type 'yes' or 'no'.");
-//  b. 2. uppercase
-prompt("Would you like to include uppercase? Type 'yes' or 'no'.");
-//  b. 3. numeric
-prompt("Would you like to include numeric values? Type 'yes' or 'no'.");
-//  b. 4. special characters
-prompt("How about special characters? '!@#$' Type 'yes' or 'no'.");
-//2: Validate user input. at least one character type should be selected
+var lowerCasePrompt = prompt("Would you like to include lowercase? Type 'yes' or 'no'.");
+if (lowerCasePrompt.trim().toLowerCase() === "yes") {
+  lowerCase = true;
+  nonNumericCharacters.push(lowerCaseCharacter.split(""));
+}
 
+//  b. 2. uppercase
+var upperCasePrompt = prompt("Would you like to include uppercase? Type 'yes' or 'no'.");
+if (upperCasePrompt.trim().toLowerCase() === "yes") {
+  upperCase = true;
+}
+
+//  b. 3. numeric
+var numberCharacterPrompt = prompt("Would you like to include numeric values? Type 'yes' or 'no'.");
+if (numberCharacterPrompt.trim().toLowerCase() === "yes") {
+  numbers = true;
+}
+//  b. 4. special characters
+var specialCharacterPrompt = prompt("How about special characters? '!@#$' Type 'yes' or 'no'.");
+if (specialCharacterPrompt.trim().toLowerCase() === "yes") {
+  special = true;
+}
+//2: Validate user input. at least one character type should be selected
+if (!lowerCase && !upperCase && !numbers && !special) {
+  alert("Must select at least one input!");
+}
 //3: Generate password
 
-//Vars - character types
-var lowerCase = String.fromCharCode(97-122);
-var upperCase = String.fromCharCode(65-90);
-var numberCharacter = String.fromCharCode(48-57);
-var specialCharacter = String.fromCharCode((33-47) + (58-91));
 
-console.log(lowerCase, upperCase, numberCharacter, specialCharacter);
+// for loop
+for (var i = 0; i < passwordLength; i++) {
+  var index = Math.floor(Math.random() * allChars.length);
+  var char = allChars.charAt(index);
+  password += char;
+}
 
 //4: Display generated password on page
   return "Generated password will go here."; //PLACEHOLDER RETURN VALUE!!!
