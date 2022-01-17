@@ -5,6 +5,7 @@ var generateBtn = document.querySelector("#generate"); //generte id = red button
 function generatePassword() {
   console.log("Button has been clicked."); 
 //1: Prompt user for password criteria
+alert("Welcome! Let's create a randomly generated password for you!");
 //  a. password length 8-128
 var passwordLength = parseInt(
   prompt("How long would you like your password? Type a value between 8 - 128.")
@@ -14,6 +15,7 @@ while (!passwordLength) {
 };
 if (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
   alert("Invalid entry!");
+  console.log("Invalid numeric entry.");
 }
 else {
   console.log("Valid numeric entry.");
@@ -30,6 +32,14 @@ prompt("How about special characters? '!@#$' Type 'yes' or 'no'.");
 //2: Validate user input. at least one character type should be selected
 
 //3: Generate password
+
+//Vars - character types
+var lowerCase = String.fromCharCode(97-122);
+var upperCase = String.fromCharCode(65-90);
+var numberCharacter = String.fromCharCode(48-57);
+var specialCharacter = String.fromCharCode((33-47) + (58-91));
+
+console.log(lowerCase, upperCase, numberCharacter, specialCharacter);
 
 //4: Display generated password on page
   return "Generated password will go here."; //PLACEHOLDER RETURN VALUE!!!
