@@ -3,17 +3,16 @@ var generateBtn = document.querySelector("#generate"); //generte id = red button
 
 //Vars - character types
 var lowerCaseCharacter = "abcdefgijklmnopqrstuvwxyz";
-var upperCaseCharacter = String.fromCharCode(65-90);
-var numberCharacter = String.fromCharCode(48-57);
-var specialCharacter = String.fromCharCode((33-47) + (58-91));
-var allChars = "";
+var upperCaseCharacter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var numberCharacter = "0123456789";
+var specialCharacter = "!@#$%^&*()-=+/?.,><";
 var password = "";
 var passwordLength = 0;
 var lowerCase = false;
 var upperCase = false;
 var numbers = false;
 var special = false;
-var nonNumericCharacters = [];
+var characterArray = numberCharacter.split("");
 
 //generate password function
 function generatePassword() {
@@ -24,9 +23,6 @@ alert("Welcome! Let's create a randomly generated password for you!");
 passwordLength = parseInt(
   prompt("How long would you like your password? Type a value between 8 - 128.")
 );
-while (!passwordLength) {
-  passwordLength = parseInt(prompt("Please enter a numeric value between 8-128!"))
-};
 if (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
   alert("Invalid entry!");
   console.log("Invalid numeric entry.");
@@ -34,29 +30,35 @@ if (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passw
 else {
   console.log("Valid numeric entry.");
 }
+while (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
+  passwordLength = parseInt(prompt("Please enter a numeric value between 8-128!"));
+};
 //  b. character types
 //  b. 1. lowercase
 var lowerCasePrompt = prompt("Would you like to include lowercase? Type 'yes' or 'no'.");
 if (lowerCasePrompt.trim().toLowerCase() === "yes") {
   lowerCase = true;
-  nonNumericCharacters.push(lowerCaseCharacter.split(""));
+  characterArray.push(lowerCaseCharacter.split(""));
 }
 
 //  b. 2. uppercase
 var upperCasePrompt = prompt("Would you like to include uppercase? Type 'yes' or 'no'.");
 if (upperCasePrompt.trim().toLowerCase() === "yes") {
   upperCase = true;
+  characterArray.push(upperCaseCharacter.split(""));
 }
 
 //  b. 3. numeric
 var numberCharacterPrompt = prompt("Would you like to include numeric values? Type 'yes' or 'no'.");
 if (numberCharacterPrompt.trim().toLowerCase() === "yes") {
   numbers = true;
+  characterArray.push(numberCharacter.split(""));
 }
 //  b. 4. special characters
 var specialCharacterPrompt = prompt("How about special characters? '!@#$' Type 'yes' or 'no'.");
 if (specialCharacterPrompt.trim().toLowerCase() === "yes") {
   special = true;
+  characterArray.push(specialCharacter.split(""));
 }
 //2: Validate user input. at least one character type should be selected
 if (!lowerCase && !upperCase && !numbers && !special) {
@@ -64,16 +66,15 @@ if (!lowerCase && !upperCase && !numbers && !special) {
 }
 //3: Generate password
 
-
 // for loop
 for (var i = 0; i < passwordLength; i++) {
-  var index = Math.floor(Math.random() * allChars.length);
-  var char = allChars.charAt(index);
+  var index = Math.floor(Math.random() * characterArray.length);
+  var char = characterArray.join("").charAt(index);
   password += char;
 }
 
 //4: Display generated password on page
-  return "Generated password will go here."; //PLACEHOLDER RETURN VALUE!!!
+  return password; //return value
 }
  
 // Write password to the #password input displays on password card
