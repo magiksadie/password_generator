@@ -6,7 +6,18 @@ function generatePassword() {
   console.log("Button has been clicked."); 
 //1: Prompt user for password criteria
 //  a. password length 8-128
-prompt("How long would you like your password? Type a value between 8 - 128.");
+var passwordLength = parseInt(
+  prompt("How long would you like your password? Type a value between 8 - 128.")
+);
+while (!passwordLength) {
+  passwordLength = parseInt(prompt("Please enter a numeric value between 8-128!"))
+};
+if (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
+  alert("Invalid entry!");
+}
+else {
+  console.log("Valid numeric entry.");
+}
 //  b. character types
 //  b. 1. lowercase
 prompt("Would you like to include lowercase? Type 'yes' or 'no'.");
