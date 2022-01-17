@@ -16,7 +16,6 @@ var characterArray = numberCharacter.split("");
 
 //generate password function
 function generatePassword() {
-  console.log("Button has been clicked."); 
 //1: Prompt user for password criteria
 alert("Welcome! Let's create a randomly generated password for you!");
 //  a. password length 8-128
@@ -25,10 +24,6 @@ passwordLength = parseInt(
 );
 if (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
   alert("Invalid entry!");
-  console.log("Invalid numeric entry.");
-}
-else {
-  console.log("Valid numeric entry.");
 }
 while (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(passwordLength)) {
   passwordLength = parseInt(prompt("Please enter a numeric value between 8-128!"));
@@ -38,34 +33,34 @@ while (passwordLength < 8 || passwordLength > 128 || !passwordLength || isNaN(pa
 var lowerCasePrompt = prompt("Would you like to include lowercase? Type 'yes' or 'no'.");
 if (lowerCasePrompt.trim().toLowerCase() === "yes") {
   lowerCase = true;
-  characterArray.push(lowerCaseCharacter.split(""));
+  characterArray = characterArray.concat(lowerCaseCharacter.split(""))
 }
 
 //  b. 2. uppercase
 var upperCasePrompt = prompt("Would you like to include uppercase? Type 'yes' or 'no'.");
 if (upperCasePrompt.trim().toLowerCase() === "yes") {
   upperCase = true;
-  characterArray.push(upperCaseCharacter.split(""));
+  characterArray = characterArray.concat(upperCaseCharacter.split(""))
 }
 
 //  b. 3. numeric
 var numberCharacterPrompt = prompt("Would you like to include numeric values? Type 'yes' or 'no'.");
 if (numberCharacterPrompt.trim().toLowerCase() === "yes") {
   numbers = true;
-  characterArray.push(numberCharacter.split(""));
+  characterArray = characterArray.concat(numberCharacter.split(""))
 }
 //  b. 4. special characters
 var specialCharacterPrompt = prompt("How about special characters? '!@#$' Type 'yes' or 'no'.");
 if (specialCharacterPrompt.trim().toLowerCase() === "yes") {
   special = true;
-  characterArray.push(specialCharacter.split(""));
+  characterArray = characterArray.concat(specialCharacter.split(""))
 }
 //2: Validate user input. at least one character type should be selected
 if (!lowerCase && !upperCase && !numbers && !special) {
   alert("Must select at least one input!");
+  return null;
 }
 //3: Generate password
-
 // for loop
 for (var i = 0; i < passwordLength; i++) {
   var index = Math.floor(Math.random() * characterArray.length);
